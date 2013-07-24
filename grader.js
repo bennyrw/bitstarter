@@ -49,7 +49,8 @@ var loadChecks = function(checksfile) {
     return JSON.parse(fs.readFileSync(checksfile));
 };
 
-var checkHtml = function($, checksfile) {
+var checkHtmlFile = function(htmlfile, checksfile) {
+    $ = cheerioHtmlFile(htmlfile);
     var checks = loadChecks(checksfile).sort();
     var out = {};
     for(var ii in checks) {
@@ -60,6 +61,19 @@ var checkHtml = function($, checksfile) {
     }
     return out;
 };
+
+var checkHtml = function(html, checksfile) {
+    $ = cheerioHtml(html);
+    var checks = loadChecks(checksfile).sort();
+    var out = {};
+    for(var ii in checks) {
+	var occurrences = $(checks[ii]);
+        var numOccurrences = occurrences.length;
+        var present = numOccurrences > 0;
+        out[checks[ii]] = present;
+    }
+    return out;
+}
 
 var clone = function(fn) {
     // Workaround for commander.js issue.
@@ -80,16 +94,14 @@ if(require.main == module) {
 		console.log("Error: " + result.message);
 		}
 	    else {
-		var $ = cheerioHtml(result);
-		var checkJson = checkHtml($, program.checks);
+		var checkJson = checkHtml(result, program.checks);
 		var outJson = JSON.stringify(checkJson, null, 4);
 		console.log(outJson);
 		}
 	    });
 	}    
     else if (program.file) {
-        var $ = cheerioHtml(program.file);
-	var checkJson = checkHtml($, program.checks);
+	var checkJson = checkHtmlFile(program.file, program.checks);
 	var outJson = JSON.stringify(checkJson, null, 4);
 	console.log(outJson);	
 	}
