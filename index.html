@@ -97,6 +97,12 @@
       .footer a {
         color: #ccccff;
       }
+
+   /* http://support.addthis.com/customer/portal/questions/1136093-share-buttons-in-center-position */      
+ div.addthis_toolbox {
+  width:180px;
+  margin: 0 auto;
+ }
     </style>
   </head>
   <body>
@@ -191,12 +197,27 @@
           </div>
           </div>
           <div class="row-fluid">
-          <div class="span8 offset2 social">
-            <!-- Social buttons are not included in default Bootstrap. -->
-            <!-- See: http://noizwaves.github.io/bootstrap-social-buttons -->
-            <button class="btn btn-twitter"><i class="icon-twitter"></i> | Twitter</button>
-            <button class="btn btn-facebook"><i class="icon-facebook"></i> | Facebook</button>
-          </div>
+		<div class="span8 offset2 social">
+		        <!-- AddThis Smart Layers BEGIN -->
+		        <!-- Go to http://www.addthis.com/get/smart-layers to customize -->
+		        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-520406435acf2cf8"></script>
+		        <script type="text/javascript">
+		          addthis.layers({
+		            'theme' : 'transparent',
+		            'share' : {
+		              'position' : 'left',
+		              'numPreferredServices' : 2
+		            },
+		            'follow' : {
+		              'services' : [
+		                {'service': 'facebook', 'id': 'ben.morris.140193'},
+		                {'service': 'twitter', 'id': 'RollUpBenMorris'}
+		              ]
+		            }
+		          });
+		        </script>
+		        <!-- AddThis Smart Layers END -->
+		</div>
           </div>
         </div>
         </div>
